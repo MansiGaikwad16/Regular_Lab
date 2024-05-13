@@ -1,0 +1,165 @@
+Q1)"Taj Hotel" given the 5- list of Room types, cost per day Room types cost per day luxury 2500 a/c 2000 non a/c 1500 deluxe
+
+do the hotel reservation process.
+Code: import java.util.HashMap;
+
+public class TajHotel {
+    private HashMap<String, Integer> rooms;
+
+    public TajHotel() {
+        rooms = new HashMap<>();
+        rooms.put("luxury", 10);
+        rooms.put("a/c", 15);
+        rooms.put("non a/c", 20);
+        rooms.put("deluxe", 12);
+    }
+
+    public void reserveRoom(String roomType, int numOfDays) {
+        if (rooms.containsKey(roomType)) {
+            int availability = rooms.get(roomType);
+            if (availability > 0) {
+                int costPerDay = getCostPerDay(roomType);
+                int totalCost = costPerDay * numOfDays;
+                rooms.put(roomType, availability - 1);
+                System.out.println("Room reserved successfully! Total cost: " + totalCost);
+            } else {
+                System.out.println("Sorry, the selected room type is not available.");
+            }
+        } else {
+            System.out.println("Invalid room type.");
+        }
+    }
+
+    private int getCostPerDay(String roomType) {
+        switch (roomType) {
+            case "luxury":
+                return 2500;
+            case "a/c":
+                return 2000;
+            case "non a/c":
+                return 1500;
+            case "deluxe":
+                return 1800;
+            default:
+                return 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        TajHotel taj = new TajHotel();
+        taj.reserveRoom("luxury", 3); // Example reservation of a luxury room for 3 days
+    }
+}
+
+
+
+
+
+Q2)Create a Book class to store Books information(bookid, title, author name, price).Create an object and assign values to Book variables and print them using a method.For printing use the bookid if the book is available so display the details and if book is not available show the msg
+ 
+Code:
+public class Book {
+    private int bookId;
+    private String title;
+    private String authorName;
+    private double price;
+    private boolean available;
+
+    public Book(int bookId, String title, String authorName, double price, boolean available) {
+        this.bookId = bookId;
+        this.title = title;
+        this.authorName = authorName;
+        this.price = price;
+        this.available = available;
+    }
+
+    public void printDetails() {
+        if (available) {
+            System.out.println("Book ID: " + bookId);
+            System.out.println("Title: " + title);
+            System.out.println("Author: " + authorName);
+            System.out.println("Price: $" + price);
+        } else {
+            System.out.println("Book with ID " + bookId + " is not available.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Book book1 = new Book(1, "The Great Gatsby", "F. Scott Fitzgerald", 15.99, true);
+        book1.printDetails();
+    }
+}
+
+
+Q3) Write a program to accept size from user accordingly accept no from user and find out the average.
+
+Code:
+import java.util.Scanner;
+
+public class AverageCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the size of the list: ");
+        int size = scanner.nextInt();
+        double sum = 0;
+        for (int i = 0; i < size; i++) {
+            System.out.print("Enter number " + (i + 1) + ": ");
+            double num = scanner.nextDouble();
+            sum += num;
+        }
+        double average = sum / size;
+        System.out.println("Average of the numbers: " + average);
+        scanner.close();
+    }
+}
+
+
+
+Q4)Write a program to accept students details from the user and store the data . and display the data.
+Code:
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Student {
+    private String name;
+    private int age;
+    private String grade;
+
+    public Student(String name, int age, String grade) {
+        this.name = name;
+        this.age = age;
+        this.grade = grade;
+    }
+
+    public void displayDetails() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Grade: " + grade);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Student> students = new ArrayList<>();
+        System.out.print("Enter the number of students: ");
+        int numStudents = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+        for (int i = 0; i < numStudents; i++) {
+            System.out.print("Enter name of student " + (i + 1) + ": ");
+            String name = scanner.nextLine();
+            System.out.print("Enter age of student " + (i + 1) + ": ");
+            int age = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+            System.out.print("Enter grade of student " + (i + 1) + ": ");
+            String grade = scanner.nextLine();
+            students.add(new Student(name, age, grade));
+        }
+        scanner.close();
+
+        System.out.println("\nStudent Details:");
+        for (int i = 0; i < students.size(); i++) {
+            System.out.println("\nStudent " + (i + 1) + ":");
+            students.get(i).displayDetails();
+        }
+    }
+}
+
