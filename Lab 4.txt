@@ -1,0 +1,277 @@
+Q1)WAP for creating searchWordFunction() in the Search class for searching and counting the occurrence of a particular word in a given string.
+Code:
+import java.util.Scanner;
+
+public class Search {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Taking input string from the user
+        System.out.print("Enter a string: ");
+        String inputString = scanner.nextLine();
+
+        // Taking input word to search
+        System.out.print("Enter the word to search: ");
+        String searchWord = scanner.nextLine();
+
+        // Calling the searchWordFunction and displaying the result
+        int count = searchWordFunction(inputString, searchWord);
+        System.out.println("The word \"" + searchWord + "\" occurs " + count + " times in the given string.");
+    }
+
+    // Search function to find and count occurrences of a word in a string
+    public static int searchWordFunction(String inputString, String searchWord) {
+        int count = 0;
+        String[] words = inputString.split("\\s+"); // Splitting the string into words
+
+        for (String word : words) {
+            if (word.equalsIgnoreCase(searchWord)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+}
+
+Q2)WAP for storing information of 5 Students using class and Object feature of oops.
+Code:
+import java.util.Scanner;
+
+class Student {
+    String name;
+    int rollNumber;
+    int age;
+    String course;
+
+    // Constructor to initialize the student object
+    public Student(String name, int rollNumber, int age, String course) {
+        this.name = name;
+        this.rollNumber = rollNumber;
+        this.age = age;
+        this.course = course;
+    }
+
+    // Method to display student information
+    public void displayStudentInfo() {
+        System.out.println("Student Name: " + name);
+        System.out.println("Roll Number: " + rollNumber);
+        System.out.println("Age: " + age);
+        System.out.println("Course: " + course);
+        System.out.println("---------------------------");
+    }
+}
+
+public class StudentInformation {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Creating an array to store information about 5 students
+        Student[] students = new Student[5];
+
+        // Taking input for each student
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Enter details for Student " + (i + 1) + ":");
+            System.out.print("Name: ");
+            String name = scanner.nextLine();
+            System.out.print("Roll Number: ");
+            int rollNumber = scanner.nextInt();
+            scanner.nextLine(); // consume the newline character
+            System.out.print("Age: ");
+            int age = scanner.nextInt();
+            scanner.nextLine(); // consume the newline character
+            System.out.print("Course: ");
+            String course = scanner.nextLine();
+
+            // Creating a Student object and storing it in the array
+            students[i] = new Student(name, rollNumber, age, course);
+        }
+
+        // Displaying information of all students
+        System.out.println("Information of all students:");
+        for (Student student : students) {
+            student.displayStudentInfo();
+        }
+    }
+}
+
+Q3)WAP for displaying information of faculty by using an overriding feature of oops. (hint: you have to create a faculty class having a display function which will  extend the Employee class having a display() function )
+
+Code:
+
+import java.util.Scanner;
+
+class Employee {
+    String name;
+    int employeeId;
+    String department;
+
+    public Employee(String name, int employeeId, String department) {
+        this.name = name;
+        this.employeeId = employeeId;
+        this.department = department;
+    }
+
+    // Display method in the base class
+    public void display() {
+        System.out.println("Name: " + name);
+        System.out.println("Employee ID: " + employeeId);
+        System.out.println("Department: " + department);
+    }
+}
+
+class Faculty extends Employee {
+    String designation;
+
+    public Faculty(String name, int employeeId, String department, String designation) {
+        super(name, employeeId, department);
+        this.designation = designation;
+    }
+
+    // Overriding the display method in the derived class
+    @Override
+    public void display() {
+        super.display(); // calling the display method of the base class
+        System.out.println("Designation: " + designation);
+    }
+}
+
+public class FacultyInformation {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Taking input for faculty information
+        System.out.print("Enter Faculty Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Employee ID: ");
+        int employeeId = scanner.nextInt();
+        scanner.nextLine(); // consume the newline character
+        System.out.print("Enter Department: ");
+        String department = scanner.nextLine();
+        System.out.print("Enter Designation: ");
+        String designation = scanner.nextLine();
+
+        // Creating a Faculty object
+        Faculty faculty = new Faculty(name, employeeId, department, designation);
+
+        // Displaying faculty information using the overridden display method
+        System.out.println("\nFaculty Information:");
+        faculty.display();
+    }
+}
+Q4)WAP for creating the mini calculator.  you have to perform an operation on the basis of user choice until the user press yes to continue.
+
+Code:
+import java.util.Scanner;
+
+public class MiniCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            // Taking input for two numbers
+            System.out.print("Enter first number: ");
+            double num1 = scanner.nextDouble();
+
+            System.out.print("Enter second number: ");
+            double num2 = scanner.nextDouble();
+
+            // Taking input for operation choice
+            System.out.println("Choose an operation:");
+            System.out.println("1. Addition");
+            System.out.println("2. Subtraction");
+            System.out.println("3. Multiplication");
+            System.out.println("4. Division");
+            System.out.print("Enter your choice (1-4): ");
+            int choice = scanner.nextInt();
+
+            // Performing the selected operation
+            switch (choice) {
+                case 1:
+                    System.out.println("Result: " + (num1 + num2));
+                    break;
+                case 2:
+                    System.out.println("Result: " + (num1 - num2));
+                    break;
+                case 3:
+                    System.out.println("Result: " + (num1 * num2));
+                    break;
+                case 4:
+                    if (num2 != 0) {
+                        System.out.println("Result: " + (num1 / num2));
+                    } else {
+                        System.out.println("Cannot divide by zero!");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+
+            // Asking the user if they want to continue
+            System.out.print("Do you want to continue? (yes/no): ");
+            String continueChoice = scanner.next();
+
+            // Checking if the user wants to continue
+            if (!continueChoice.equalsIgnoreCase("yes")) {
+                System.out.println("Calculator session ended.");
+                break;
+            }
+
+        } while (true);
+
+        scanner.close();
+    }
+}
+
+
+
+Q5)WAP to calculate the sum of given no. No of digits on which sum operation is to be performed is taken by the user. (you have to use overloading feature of OOPs ).
+
+Code:
+import java.util.Scanner;
+
+public class SumCalculator {
+    // Method to calculate the sum of all digits in a number
+    public static int calculateSum(int number) {
+        int sum = 0;
+        while (number != 0) {
+            sum += number % 10;
+            number /= 10;
+        }
+        return sum;
+    }
+
+    // Overloaded method to calculate the sum of a specific number of digits
+    public static int calculateSum(int number, int numOfDigits) {
+        int sum = 0;
+        for (int i = 0; i < numOfDigits; i++) {
+            sum += number % 10;
+            number /= 10;
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Taking input for the number
+        System.out.print("Enter a number: ");
+        int inputNumber = scanner.nextInt();
+
+        // Taking input for the number of digits on which the sum operation is to be performed
+        System.out.print("Enter the number of digits for sum calculation: ");
+        int numOfDigits = scanner.nextInt();
+
+        // Calculating and displaying the sum using the appropriate overloaded method
+        int result;
+        if (numOfDigits <= 0) {
+            result = calculateSum(inputNumber);
+        } else {
+            result = calculateSum(inputNumber, numOfDigits);
+        }
+
+        System.out.println("Sum of digits: " + result);
+
+        scanner.close();
+    }
+}
