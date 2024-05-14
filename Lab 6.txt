@@ -1,0 +1,660 @@
+Q1)Write a program to accept menu items from the user store the item in the order list and if the item is repeated than increase the count of that item and remove the duplicate item from the list.Create the operation on insert update and delete
+
+Code:
+package Activities;
+
+import java.util.Scanner;
+class OrderingSystem
+{
+	 String[] menuItems;
+     int[] itemCounts;
+     Scanner sc = new Scanner(System.in);
+     
+     
+//     Method to insert an Item
+	public void insertItem() 
+    { 
+        System.out.print("Enter the new menu item: ");
+        String newItem = sc.nextLine();
+        // Check if the item is already in the menu
+        for (int i = 0; i < menuItems.length; i++) 
+        {
+            if (menuItems[i] != null && menuItems[i].equalsIgnoreCase(newItem)) 
+            {
+                System.out.println("Item already exists. Updating count...");
+                itemCounts[i]++;
+                return;
+            }
+        }
+        // Find the first available slot in the array
+        for (int i = 0; i < menuItems.length; i++) 
+        {
+            if (menuItems[i] == null) {
+                menuItems[i] = newItem;
+                itemCounts[i] = 1;
+                System.out.println("Item inserted successfully.");
+                return;
+            }
+        }
+
+        System.out.println("Menu is full. Unable to insert the item.");
+    }
+	
+//		Method to Update an item
+	 public void updateItemCount() 
+	 {
+	        System.out.print("Enter the menu item to update count: ");
+	        String itemToUpdate = sc.nextLine();
+
+	        // Check if the item is in the menu
+	        for (int i = 0; i < menuItems.length; i++) 
+	        {
+	            if (menuItems[i] != null && menuItems[i].equalsIgnoreCase(itemToUpdate)) 
+	            {
+	                System.out.print("Enter the new count for " + menuItems[i] + ": ");
+	                itemCounts[i] = sc.nextInt();
+	                System.out.println("Count updated successfully.");
+	                return;
+	            }
+	        }
+
+	        System.out.println("Item not found in the menu. Unable to update count.");
+	    }
+
+	 
+//	 	Method to Delete an item
+	  public void deleteItem() 
+	  {
+	        System.out.print("Enter the menu item to delete: ");
+	        String itemToDelete = sc.nextLine();
+
+	        // Check if the item is in the menu
+	        for (int i = 0; i < menuItems.length; i++) 
+	        {
+	            if (menuItems[i] != null && menuItems[i].equalsIgnoreCase(itemToDelete)) 
+	            {
+	                menuItems[i] = null;
+	                itemCounts[i] = 0;
+	                System.out.println("Item deleted successfully.");
+	                return;
+	            }
+	        }
+
+	        System.out.println("Item not found in the menu. Unable to delete.");
+	    }
+
+//	 	Method to Display Items
+	  public void displayMenu() 
+	  {
+	        System.out.println("\nMenu:");
+
+	        for (int i = 0; i < menuItems.length; i++) 
+	        {
+	            if (menuItems[i] != null) 
+	            {
+	                System.out.println(menuItems[i] + " - Count: " + itemCounts[i]);
+	            }
+	        }
+	    }  
+}
+
+
+public class MenuManager 
+{
+    
+    public static void main(String[] args) 
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Welcome to the Taj Hotel!");
+        MenuManager m = new MenuManager();
+        OrderingSystem o = new OrderingSystem();
+        // Initialize menu items array and counts array
+        o.menuItems = new String[100]; // Assuming a maximum of 100 menu items
+        o.itemCounts = new int[100];
+
+        int choice;
+        do //to repeat the process
+        {
+            System.out.println("\nMenu:");
+            System.out.println("1. Insert new item");
+            System.out.println("2. Update item count");
+            System.out.println("3. Delete item");
+            System.out.println("4. Display menu");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) 
+            {
+                case 1:
+                    o.insertItem();
+                    break;
+                case 2:
+                    o.updateItemCount();
+                    break;
+                case 3:
+                    o.deleteItem();
+                    break;
+                case 4:
+                    o.displayMenu();
+                    break;
+                case 0:
+                    System.out.println("Exiting Menu Manager. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
+        } 
+        while (choice != 0);
+        System.out.println("********* Thank You ***************");
+        System.out.println("********* visit Again **************");
+    }
+    
+    
+}
+
+Q2) Design a class named ShowRoom with the following description: Instance variables/data members:
+
+
+
+String name: to store the name of the customer.
+
+
+
+ long mobno: to store the mobile number of the customer.
+
+
+
+double cost: to store the cost of the items purchased. double dis: to store the discount amount.
+
+
+
+double amount: to store the amount to be paid after discount.
+
+
+
+Member methods:
+
+
+
+ ShowRoom(): default constructor to initialize data members.
+
+
+
+void input(): to input customer name, mobile number, cost.
+
+
+
+void calculate(): to calculate discount on the cost of purchased items, based on the following criteria:
+
+
+
+COST                                                         DISCOUNT (IN PERCENTAGE) <=to Rs. 10000                                                5%
+
+
+
+> Rs. 10000 <=Rs. 20000                             10%
+
+
+
+> Rs. 20000 <= Rs. 35000                           15%
+
+
+
+> Rs. 35000 20%
+
+
+
+ void display(): to display customer name, mobile number, amount to be paid after discount.
+
+
+
+ Write a main() method to create an object of the class and call the above member methods.
+
+
+Code:
+import java.util.Scanner;
+
+
+public class Showroom 
+{
+	String Name;
+	Long Mobile_no;
+	double cost ;
+	double dis;
+	double amount;
+	
+	//Showroom default Constructor  
+	public Showroom() 
+	{
+		this.Name=null;
+		this.Mobile_no=0L;
+		this.cost=0.0;
+		this.dis=0.0;
+		this.amount=0.0;
+	}
+	
+	//method to take input from User
+	public void input() 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the name of customer :");
+		Name=sc.next();
+		System.out.println("Enter the Mobile of customer :");
+		Mobile_no=sc.nextLong();
+		System.out.println("Enter the Cost :");
+		cost=sc.nextDouble();
+	}
+	
+	//method to calculate the dis
+	public void calculate() 
+	{
+		if(cost<=10000)
+		{
+			dis=cost*0.05;
+		}
+		else if(cost > 10000 && cost <= 20000)
+		{
+			dis=cost*0.1;
+		}
+		else if (cost > 20000 && cost <= 35000) 
+		{
+            dis = cost * 0.15;
+        } 
+		else 
+		{
+            dis = cost * 0.2;
+        }
+		
+		amount=cost-dis;
+	}
+	
+	//Method to display the method
+	public void display()
+	{
+		System.out.println("Customer Name : "+Name);
+		System.out.println("Customer Mobile NO : "+Mobile_no);
+		System.out.println("Total amount after discount : "+amount );
+	}
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		Showroom s = new Showroom();
+		char ans ;
+		do
+		{
+			s.input();
+			s.calculate();
+			s.display();
+			System.out.println("Do you want to repeat the process (Y/n) : ");
+			ans=sc.next().charAt(0);
+		}
+		while(ans=='y' || ans=='Y');
+	}
+
+}
+
+
+
+3.Create an interface called "BankAccount" with methods called "deposit" and "withdraw". Create a class called "CheckingAccount" that implements the BankAccount interface and implements the "deposit" and "withdraw" methods. Create an object of the CheckingAccount class and call both the "deposit" and "withdraw" methods.
+
+Code:
+import java.util.Scanner;
+
+//BankAccount interface that holds method of banking function
+interface BankAccount
+{
+	public void create();
+	public void display_detail();
+	public void deposit();
+	public void withdraw();
+	public void Check_balance();	
+}
+
+// Implement the CheckingAccount class that implements BankAccount interface
+public class CheckingAccount implements BankAccount
+{
+	
+	Scanner sc = new Scanner(System.in);
+	String[] Name;
+	int[] Age;
+	String[] Address;
+	Long[] Acc_no;
+	Long[] Balance;
+	Long[] Phn_no;
+	
+	
+	// Method to set the size of arrays based on user input
+	public void arraysize()
+	{
+		System.out.println("Enter the size of an Array : " );
+		int Size=sc.nextInt();
+		Name=new String [Size] ;
+		Age = new int [Size];
+		Address=new String [Size];
+		Acc_no = new Long [Size] ;
+		Balance= new Long [Size];
+		Phn_no= new Long [Size];
+
+		
+	}
+	
+	 // Override method to create bank accounts
+	@Override
+	public void create() 
+	{
+		arraysize();
+		for(int i=0;i<Name.length;i++)
+		{
+			System.out.println("\nEnter details for customer no "+(i+1)+" : ");
+			System.out.println("\nEnter Your Name : ");
+			Name[i]=sc.next();
+			System.out.println("Enter Your Age : ");
+			Age[i]=sc.nextInt();
+			System.out.println("Enter Your Address : ");
+			Address[i]=sc.next();
+			System.out.println("Enter Your Account no : ");
+			Acc_no[i]=sc.nextLong();
+			System.out.println("Enter the amount for account opening  : ");
+			Balance[i]=sc.nextLong();
+			System.out.println("Enter your phone no :");
+			Phn_no[i]=sc.nextLong();
+		}
+		
+		
+	}
+
+	// Override method to display account details
+	@Override
+	public void display_detail() 
+	{
+		for(int i=0;i<Name.length;i++)
+		{
+			System.out.println("\nAccountholder Name :" +Name[i]);
+			System.out.println("AccountHolder Age : "+Age[i]);
+			System.out.println("AccountHolder Address  :"+Address[i]);
+			System.out.println("AccountHolder phone no :"+Phn_no[i]);
+			System.out.println("AccountHolder Account Number :"+Acc_no[i]);
+			System.out.println("AccountHolder Balance  : "+Balance[i]);
+			
+		}
+		
+		
+	}
+
+	// Override method to deposit money into an account
+	@Override
+	public void deposit() 
+	{
+		System.out.println("\nEnter Your Account_no for Verifaication :");
+		int N_Acc=sc.nextInt();
+		boolean found =false;
+		for(int i=0;i<Name.length;i++)
+		{
+			if(N_Acc==Acc_no[i])
+			{
+				found=true;
+				System.out.println("\nEnter the amount u want to  deposite :");
+				Double Amount=sc.nextDouble();
+				Balance[i]=(long) (Amount+Balance[i]);
+				System.out.println("Your amount has Deposited ");
+				System.out.println("Your total amount is : "+Balance[i]);
+				
+			}
+			
+		}
+		
+		if(!found)
+		{
+			System.err.println("\nYou have enter Wrong Acc_no:");
+		}
+		
+}
+
+	// Override method to withdraw money from an account
+	@Override
+	public void withdraw() 
+	{
+		System.out.println("\nEnter Your Account_no for Verifaication :");
+		int N_Acc=sc.nextInt();
+		boolean found =false;
+		for(int i=0;i<Name.length;i++)
+		{
+			if(N_Acc==Acc_no[i])
+			{
+				found=true;
+				System.out.println("\nEnter the amount u want to  Withdraw :");
+				Double Amount=sc.nextDouble();
+				Balance[i]=(long) (Amount-Balance[i]);
+				System.out.println("Your amount has Withdraw ");
+				System.out.println("Your total amount is : "+Balance[i]);	
+			}
+			
+		}
+		if(!found)
+		{
+			System.err.println("\nYou have enter Wrong Acc_no:");
+		}
+	
+}
+
+	 // Override method to check the account balance
+	@Override
+	public void Check_balance() 
+	{
+		System.out.println("\nEnter Your Account_no for Verifaication :");
+		int N_Acc=sc.nextInt();
+		boolean found =false;
+		for(int i=0;i<Name.length;i++)
+		{
+			if(N_Acc==Acc_no[i])
+			{
+				System.out.println("Your total balance is "+Balance[i]);
+			}
+		
+		}
+		if(!found)
+		{
+			System.err.println("\nYou have enter Wrong Acc_no:");
+		}
+		
+	}
+	
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		CheckingAccount ca = new CheckingAccount();
+		char ans;
+		ca.create();
+		
+		do//do-while loop used to repeat the process
+		{
+			System.out.println("\n1:Show Details of User");
+			System.out.println("2:Deposit");
+			System.out.println("3:Withdraw");
+			System.out.println("4: Balance Check");
+			System.out.println("\nSelect your choice from above list");
+			int ch=sc.nextInt();
+			switch (ch) //switch to make a choice
+			{
+			case 1:
+					ca.display_detail();
+				break;
+			case 2:
+					ca.deposit();
+				break;
+			case 3:
+					ca.withdraw();
+				break;
+			case 4:
+					ca.Check_balance();
+				break;
+
+			default:
+				System.err.println("\nYou have made a wrong choice");
+				break;
+			}
+			System.out.println("\nDo you want repeat the process : ");
+			ans=sc.next().charAt(0);
+		}
+		while(ans=='y' || ans=='Y');
+		
+		
+	}
+
+}
+
+
+4.Create a program in java to implement multilevel inheritance and hierarchical inheritance .
+
+
+
+Take classes like : Doctor , Surgeon and Nurse
+
+
+
+Create methods and show method overriding.
+
+Code:
+import java.util.Scanner;
+/*here  class person extend class Doctor and class doctor extends class surgeon so multilevel inheritance is applied
+ * and 
+ * also class person extends Doctor and Nurse so hierarchical inheritance is applied.
+ */
+
+
+//Base class representing a generic person
+class Person
+{
+	String Name;
+	int Age;
+	long Aadhar_no;
+	
+	// Constructor for Person class
+	public Person(String Name,int Age,long Aadhar_card) 
+	{
+		this.Name=Name;
+		this.Age=Age;
+		this.Aadhar_no=Aadhar_card;
+	}
+	
+	// Display method for Person class
+	public void display() 
+	{
+		System.out.println("The Persons Name :"+Name);
+		System.out.println("The Persons age : "+Age);
+		System.out.println("The Persons Id Proof :"+Aadhar_no);
+	}
+	
+}
+
+//Subclass representing a Doctor, inheriting from Person  
+class Doctor extends Person
+{
+	String Doctors_Id;
+	double Experience;
+
+	// Constructor for Doctor class
+	public Doctor(String Name, int Age, long Aadhar_card,String Doctors_Id,double Experience) 
+	{
+		super(Name, Age, Aadhar_card);
+		this.Doctors_Id=Doctors_Id;
+		this.Experience=Experience;	
+	}
+	
+	 // Display method for Doctor class, overriding the base class display method
+	public void display() 
+	{
+		super.display();
+		System.out.println("Doctors Id :"+Doctors_Id);
+		System.out.println("Years of Experience of doctor in months :"+Experience);
+	}
+}
+
+//Subclass representing a Surgeon, inheriting from Doctor
+class Surgeon extends Doctor
+{
+	String Specilization;
+	
+	// Constructor for Surgeon class
+	public Surgeon(String Name,int Age,long Aadhar_card,String Doctors_Id,double Experience,String Specilaization) 
+	{
+		super(Name, Age, Aadhar_card, Doctors_Id, Experience);
+		this.Specilization=Specilaization;
+	}
+	
+	// Display method for Surgeon class, overriding the Doctor class display method
+	public void display()
+	{
+		super.display();
+		System.out.println("doctor is specilized in : "+Specilization);
+	}
+}
+
+
+//Subclass representing a Nurse, inheriting from Person
+class Nurse extends Person
+{
+	String Nurse_id;
+	double Experirence;
+
+	// Constructor for Nurse class
+	public Nurse(String Name, int Age, long Aadhar_card,String Nurse_id,double Experirence) 
+	{
+		super(Name, Age, Aadhar_card);
+		this.Nurse_id=Nurse_id;
+		this.Experirence=Experirence;
+	}
+	
+	// Display method for Nurse class, overriding the Person class display method
+	@Override
+	public void display() 
+	{
+		super.display();
+		System.out.println("Nurse id :"+Nurse_id);
+		System.out.println("Years of Experience Nusre have in months  :"+Experirence);
+	}
+}
+public class InheritanceExample 
+{
+
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		
+		 // Input for a generic person
+		System.out.println("Enter Your Name :");
+		String Name=sc.next();
+		System.out.println("Enter Your Age :");
+		int Age=sc.nextInt();
+		System.out.println("Enter Your Aadhar No :");
+		long Adharno=sc.nextLong();
+		Person p =new Person(Name, Age, Adharno);
+		p.display();
+		
+		 // Input for a doctor
+		System.out.println("\nEnter  Doctors Id :");
+		String Id=sc.next();
+		System.out.println("Enter Years of Experience :");
+		double Exp=sc.nextDouble();
+		Doctor d = new Doctor(Name, Age, Adharno, Id, Exp);
+		d.display();
+		
+		 // Input for a surgeon
+		System.out.println("\nDoctor is Specialized in  :");
+		String Spz=sc.next();
+		Surgeon s= new Surgeon(Name, Age, Adharno, Id, Exp, Spz);
+		s.display();
+		
+	    // Input for a nurse
+		System.out.println("\nEnter  Doctors Id :");
+		String N_Id=sc.next();
+		System.out.println("Enter Years of Experience :");
+		double N_Exp=sc.nextDouble();
+		Nurse n = new Nurse(Name, Age, Adharno, N_Id, N_Exp);
+		n.display();
+	}
+
+}
+
+
